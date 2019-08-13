@@ -1,23 +1,29 @@
-var apiKeyOpenUv = "71f0db0f2831046be5921480eebd6bed";
+var apiKeyOpenUv = "8ede6d45cbf5c30f0c6aec9058b3b042";
+// 71f0db0f2831046be5921480eebd6bed
 var owApiKey = "5962343185c76a06e93a44c01391ca1a";
 let city = ""  
+let skinType = ""
 var latCoord = 0
 var lonCoord = 0
 var dt = 0
 var uvi = 0
+var zipCode = 0
+var currentTime = moment().toISOString()
 
 
+console.log(currentTime);
 
 $("#add-info-btn").on("click", function(event) {
   event.preventDefault();
 
   // This line grabs the input from the textbox
   
-    city = $("#city-name-input").val().trim();
+    zipCode = $("#zip-name-input").val().trim();
+    skinType = $("#exampleFormControlSelect1").val();
 
 console.log(city);
 
-let owQueryURL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${owApiKey}` 
+let owQueryURL = `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&APPID=${owApiKey}` 
   
 // Creating an AJAX call for the specific villain button being clicked
         
@@ -31,44 +37,35 @@ let owQueryURL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID
             dt = response.dt;
             console.log(latCoord);
             console.log(lonCoord)
-            console.log(dt);           
+            console.log(dt); 
+            console.log(skinType)  
+            console.log(city)        
             });
       
    uvAjax();
+  //  hourlyUv();
 });
 
-
+let uvQueryUrl = `https://api.openuv.io/api/v1/uv?lat=${latCoord}&lng=${lonCoord}&dt=${currentTime}`
+  
 function uvAjax() {
 
  $.ajax({
       type: 'GET',
       dataType: 'json',
       beforeSend: function(request) {
-        request.setRequestHeader('x-access-token', '71f0db0f2831046be5921480eebd6bed');
+        request.setRequestHeader('x-access-token', '8ede6d45cbf5c30f0c6aec9058b3b042');
       },
-      url: `https://api.openuv.io/api/v1/uv?lat=${latCoord}&lng=${lonCoord}&dt=${dt}`,
+      url: uvQueryUrl,
       success: function(response) {
         //handle successful response
         console.log(response);
+        console.log(skinType);
+        console.log(city);
+        console.log(uvQueryUrl);
+
       
     },
-});
+}); 
 
-$.ajax({
-  type: 'GET',
-  dataType: 'json',
-  beforeSend: function(request) {
-    request.setRequestHeader('x-access-token', 'c605ae3d55cb5b25943f217559b96eae');
-  },
-  url: `https://api.openuv.io/api/v1/forecast?lat=${latCoord}&lng=${lonCoord}&dt=${dt}`,
-  success: function(response) {
-    console.log(response)
-  },
-  error: function(response) {
-    // handle error response
-  }
-});
 }
-
-
-
