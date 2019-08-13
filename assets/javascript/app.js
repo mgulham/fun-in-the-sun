@@ -20,8 +20,6 @@ var temp = 0
 var maxTemp = 0 
 var minTemp = 0
 
-console.log("Current Time: " + currentTime);
-
 $("#add-info-btn").on("click", function(event) {
   event.preventDefault();
 
@@ -30,11 +28,9 @@ $("#add-info-btn").on("click", function(event) {
     zipCode = $("#zip-name-input").val().trim();
     skinType = $("#exampleFormControlSelect1").val();
 
-console.log(city);
-
 let owQueryUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${owApiKey}` 
   
-// Creating an AJAX call for the specific villain button being clicked
+// Creating an AJAX call for the specific button being clicked
         
         $.ajax({
           url: owQueryUrl,
@@ -50,10 +46,11 @@ let owQueryUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}
             temp = response.main.temp;
             maxTemp = response.main.temp_max;
             minTemp = response.main.temp_min;
-            temp = (temp - 273.15) * 9/5 + 32;
-            minTemp = (minTemp - 273.15) * 9/5 + 32     //Convert from Kelvin
-            maxTemp = (maxTemp - 273.15) * 9/5 + 32
+            temp = Math.round((temp - 273.15) * 9/5 + 32);
+            minTemp = Math.round((minTemp - 273.15) * 9/5 + 32)     //Convert from Kelvin
+            maxTemp = Math.round((maxTemp - 273.15) * 9/5 + 32)
             
+            console.log("Current Time: " + currentTime);  
             console.log("Current Temperature: " + temp +  "°F")
             console.log("Low: " + minTemp +  "°F")
             console.log("High: " + maxTemp +  "°F")
