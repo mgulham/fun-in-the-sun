@@ -22,12 +22,15 @@ var minTemp = 0
 
 $("#add-info-btn").on("click", function(event) {
   event.preventDefault();
+ 
 
   // This line grabs the input from the textbox
   
     zipCode = $("#zip-name-input").val().trim();
     skinType = $("#exampleFormControlSelect1").val();
-
+   
+    $(".my-form").empty()
+    $(".my-form").html("<h3>Check the Console</h3>")
 let owQueryUrl = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode},us&appid=${owApiKey}` 
   
 // Creating an AJAX call for the specific button being clicked
