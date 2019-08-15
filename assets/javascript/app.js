@@ -25,7 +25,7 @@ console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
 $("#add-info-btn").on("click", function(event) {
   event.preventDefault();
-
+  // $(".information-form").html("");
   // This line grabs the input from the textbox
   
     skinType = $("#skin-type-input").val();
@@ -47,10 +47,10 @@ $("#add-info-btn").on("click", function(event) {
             console.log(latCoord);
             console.log(lonCoord);  
             });
+            setTimeout(uvAjax, 1000);
 });
 
-$("#add-uv-btn").on("click", function(event) {
-   event.preventDefault();
+function uvAjax() {
   //  setTimeout(function() {alert("Called after delay.")},20000);
    $.ajax({
     type: 'GET',
@@ -77,60 +77,14 @@ $("#add-uv-btn").on("click", function(event) {
       console.log(response.result.safe_exposure_time.st1); 
    }
   });
-  // $("#uv-time").html("<p>" + currentTimeStd + "<p>");
-  // $("#uv-max-time").html("<p>" + uvMaxTime + "<p>");
-  // // vitamin D logic
-  // if (0 <= uvIndex < 3 && skinType === "I" ) {
-  //   $("#alert-display").append("<img src= 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzN_EE2ZXxTkUJpgwx7_Y1TxdGXezB61y9GcRFoT13LFiL7imMQw'>");
-  //   $("#vitamin-time").html("<h1>" + 15 + "-" + 20 + "mins <h1>");
-  // };
-  // // skin type 1 table logic
-  // if (0 <= uvIndex && uvIndex <3 && skinType === "I" ) {
-  //   var newRow1 = $("<tr>").append(
-  //     $("<td>").text(skinType),
-  //     $("<td>").text(uvIndex),
-  //     $("<td>").text(skinType1),
-  //   );
-  // $("#skin-table > tbody").append(newRow1);
-  // }
-  // if (3 <= uvIndex && uvIndex <6 && skinType === "I" ) {
-  //   var newRow2 = $("<tr>").append(
-  //     $("<td>").text(skinType),
-  //     $("<td>").text(uvIndex),
-  //     $("<td>").text(skinType1),
-  //   );
-  // $("#skin-table > tbody").append(newRow2);
-  // }
-  // if (6 <= uvIndex && uvIndex <8 && skinType === "I" ) {
-  //   var newRow3 = $("<tr>").append(
-  //     $("<td>").text(skinType),
-  //     $("<td>").text(uvIndex),
-  //     $("<td>").text(skinType1),
-  //   );
-  // $("#skin-table > tbody").append(newRow3);
-  // }
-  // if (8 <= uvIndex && uvIndex <11 && skinType === "I" ) {
-  //   var newRow4 = $("<tr>").append(
-  //     $("<td>").text(skinType),
-  //     $("<td>").text(uvIndex),
-  //     $("<td>").text(skinType1),
-  //   );
-  // $("#skin-table > tbody").append(newRow4);
-  // }
-  // if (11 <= uvIndex && uvIndex <15 && skinType === "I" ) {
-  //   var newRow5 = $("<tr>").append(
-  //     $("<td>").text(skinType),
-  //     $("<td>").text(uvIndex),
-  //     $("<td>").text(skinType1),
-  //   );
-  // $("#skin-table > tbody").append(newRow5);
-  // }
-});
+  setTimeout(updateUVData, 1000);
+  }
 
-$("#skin-info-btn").on("click", function()  {
+function updateUVData () {
+  d3.select("#vitamin-importance").transition().style("color", "red");
   var uvMaxTimeNormal = moment(uvMaxTime);
   var dateComponent = uvMaxTimeNormal.utc().format('YYYY-MM-DD');
-  var timeComponent = uvMaxTimeNormal.utc().format('hh:mm:ss');
+  var timeComponent = uvMaxTimeNormal.utc().format('HH:mm:ss');
   $("#uv-time").html("<p>" + currentTimeStd +  " AM on " + dateComponent + " at " + zipCode + "<p>");
   $("#uv-max-time").html("<p>" + timeComponent + " AM on " + dateComponent + " at " + zipCode + "<p>");
   $("#uvmax-alert-display").html("<h1>" + uvMax + "<h1>");
@@ -138,27 +92,27 @@ $("#skin-info-btn").on("click", function()  {
   if (0 <= uvIndex && uvIndex < 3 && skinType === "I" ) {
     $("#alert-display").empty();
     $("#alert-display").html("<img id='image' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzN_EE2ZXxTkUJpgwx7_Y1TxdGXezB61y9GcRFoT13LFiL7imMQw' width='200px'/>");
-    $("#vitamin-time").html("<h1>" + 15 + "-" + 20 + "mins <h1>");
+    $("#vitamin-time").html("<h1>" + 15 + "-" + 20 + " mins <h1>");
   };
   if (3 <= uvIndex && uvIndex < 6 && skinType === "I" ) {
     $("#alert-display").empty();
     $("#alert-display").html("<img id='image' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzN_EE2ZXxTkUJpgwx7_Y1TxdGXezB61y9GcRFoT13LFiL7imMQw' width='200px'/>");
-    $("#vitamin-time").html("<h1>" + 10 + "-" + 15 + "mins <h1>");
+    $("#vitamin-time").html("<h1>" + 10 + "-" + 15 + " mins <h1>");
   };
   if (6 <= uvIndex && uvIndex < 8 && skinType === "I" ) {
     $("#alert-display").empty();
     $("#alert-display").html("<img id='image' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzN_EE2ZXxTkUJpgwx7_Y1TxdGXezB61y9GcRFoT13LFiL7imMQw' width='200px'/>");
-    $("#vitamin-time").html("<h1>" + 5 + "-" + 10 + "mins <h1>");
+    $("#vitamin-time").html("<h1>" + 5 + "-" + 10 + " mins <h1>");
   };
   if (8 <= uvIndex && uvIndex < 11 && skinType === "I" ) {
     $("#alert-display").empty();
     $("#alert-display").html("<img id='image' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzN_EE2ZXxTkUJpgwx7_Y1TxdGXezB61y9GcRFoT13LFiL7imMQw' width='200px'/>");
-    $("#vitamin-time").html("<h1>" + 2 + "-" + 8 + "mins <h1>");
+    $("#vitamin-time").html("<h1>" + 2 + "-" + 8 + " mins <h1>");
   };
   if (11 <= uvIndex && uvIndex < 15 && skinType === "I" ) {
     $("#alert-display").empty();
     $("#alert-display").html("<img id='image' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzN_EE2ZXxTkUJpgwx7_Y1TxdGXezB61y9GcRFoT13LFiL7imMQw' width='200px'/>");
-    $("#vitamin-time").html("<h1>" + 1 + "-" + 5 + "mins <h1>");
+    $("#vitamin-time").html("<h1>" + 1 + "-" + 5 + " mins <h1>");
   };
   // skin type I table logic
   
@@ -254,4 +208,4 @@ $("#skin-info-btn").on("click", function()  {
     );
   $("#skin-table > tbody").append(newRow5);
   }
-})
+}

@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
 
         <title>Fun in the Sun</title>
     </head> 
@@ -42,7 +43,7 @@
                 </div>
 
             </div>         
-        <div class="row my-form">
+        <div class="row information-form" id="information-box">
             <div class="col-md-12">
             <!-- Add Employee  -->
             <div class="card mb-4">
@@ -65,6 +66,7 @@
                         <option>V</option>
                         </select>
                     </div>
+                    <img id="skin-description-box" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAV0AAACQCAMAAACcV0hbAAABCFBMVEX///+lXSs8IB26d1DSnnzntI/00LH8/Pz4+Pj19fX3/Pzz+vri9fWm4ODA6Ojb8vKw4uLSm3YuAAClWSK7dUveuKG5cEX87eHt2s724tTuya6+jXG5s7H43MbcxLXkzMB6bGvMoIajVBb749D517jhr43s0sHu4Nn3zK2hUAaRh4c2FRAAP4ozDgnq8PXI2OXf6PAARo0ATpKhu9JjirOwxdnA0eGAoMJwjrOKq8giWJXk6/K1ydvV4OqYss2lvtQAOYZRfaxyncCFocChlpVXiLMfZJ07cqQAU5R9lrc4baEANowATpdMd6dpiLIgZp4AMYvQy8tSOjdvXVusoqElAADHjGlZfaih74pGAAAUL0lEQVR4nO2dDZujtrXH1TQNYN+mm5cm2bRJ2jTt9t66ElhCQoAkIwrY3vVMcntv/P2/yT0C2zN4vLNmk/TuNvo/z4xfkHSOfohzJIwNQl5eXl5eXl5eXl5eXl5eXl5eP3vV2aZXxmMm8KUS6VAiK5HOOLzm0eMtzvjxGRZZcfc+zdL7xZTeZDS+2EJks4uevH1qF4skSRaL55o8z4tLJcQCNkMBibpvJZrv28d7rtqb49N4+ZzcbchW4l4xunSNrumlJnCyUFP68OaqiAud5CpWEVnkF7mJZBs7YSiLEV+9gm69yo5PgyIO7jZki/ruBU6WQql9sr40evEy+TehC0qTfAYPZNEW+kb03eXZjTz2G+genpE0xjLJaazSXjG8g1U2HPFQJdMhUiypyqhIiWJ1xFOIIlje3Gh8oFumQ9zgi3wOuzZfGHhRZjfCDfKZvrnZ8CNdVd9sCHrrBXShp0A3b5+vFmsID2IFWh7Gj0i6Q8HuuU6fL5ff6vrb58/7WFGt9ovVYgGjVUONxWKHmsUyea7S53m+atUaIoNaL2BLG/R09fPFQDdewE4ASzMY3BtXdVWisOufmIEuWTgn9P8LkR9TJ7oJw2QNo4kn63IuknbYLJJ1nudrFqBqoQub5FIRTU27TErUJEs608sVwVWSzkyywKRKdjQqE/hPYGgqtF/sC5XDnsgWmienQ15CuF+2EgCXi4TjzWoZ8HUb431y09MN26TG98q/tTrRdUGwW0jIYxXGJF8NSQ7obrfbNuvpuvjRx12dJDCumoTB+HPvh3he0CSJAVvmmlyr/sBXRZ7A4V2aAmVJ0y7Lk9WSwf5J2hioNxAMNAmCOcYxS/aObqwWa4XxbvHWD967yADcdkCXJesXL14kq+Eghrg7B0FodhT5QJcmfY5q+v/ZQiC1uX2xBCqo7un2pRxd5d7rlSXLZHmCBREBq3qdZNDqYS4RpPv8xfJAt1wswYcXiwy95bqjWzi6NdCteMl5OUwO7rLaHd00Gbrdj13EFrJYLyQhy6Q4pxuv3cHNJXd0xXpxmHDIduMeLLTNFtBGWNO5XuVpXC/6yBBD2itLcOLfJzIc6Rr3jNDDquACXYiHw5hqkjVHfL0iMNRmLlpgoMtmEEuPdIMuyWZ4t2L9CM8cSSe6WsJMQ93CrjALGN10tYKQu0F4B/vLxV34S9Fcl2/9suJId3WkG+0W6+1yVQ2bxeI+XbVa5rpLlhCKtwzo5svtGqYKEADydrmGLKYX61bd0UWQ4No8Wcb9nCFeHuYMs91i2W6XizxGUeWsQUCCRLfN18ku6OcMerHc5qv88mruLVKab3u66y0QqdbaLWHbfCvDYXO93h0KMrdtk+e6yntVEHctbXO3bk23+Y5nsPbCVQ501ztHd+tyG4fSDWS2zRpitFxX876tUHZ5vrUO3mBteMxU3mLc5lBPQwH21sNFwXzoMHYPs3m/vDo8OIWHze6ZexNeQnIHQaIDulB02IpdLbdH4P1Dk/cbPtbGp4bnJxvHJlx5V2BU7+crR9frp1K1eutnTG+wCnXxtJqXl5eXl5eXl5eX1xun3/wH/AuefnGt/uRW8rP3XdXwi8+v1dPgZCv6/LfX6qmrNO9tPfvj1fqs71df66vfXas/PjvVCv/nD9fqH/2FGO/PXkr3fdfjL75572p9E0KPf+12ya8m6K8O7/u/QejTdz+4Xl86uk8cpk8+vlqfuFrIefjHrz+6Xv1Ocbb++eHfrtWH/+12ypPH6X46Ae57731xoPuXKXR/9cVAN/jtB+9erw+eDXSjX378y+v1cTTQffb1L67XR58EA93f/+871+vv/3w13T9NgfveNwPd4K+T6H4+0I3+PAHuux/8ZaD7bArcX37y2UD3yyl0f/Gf0UD3v/4+ge4773i6nq6n6+l6up6up+vperqerqfr6Xq6nq6n6+l6up6up+vperqerqfr6Xq6nq6n6+l6up6up+vperqerqfr6Xq6nq6n6+l6up6up+vperqerqfr6Xq6nu4bQxd9Ponue/9Cus/eKLrRpO+rPT3QfTqJ7qcDXfTllO+rvRsNdIPfTcD78ffhQDf6xUfXw/36d2ig+92U76t9+I9X00VPr8f7zZ/Qge6kwfsFOtANf3v9Vy3/7A7x/ruWz77/5Gp9338p1Xn41SdfX63vowNd9I93PrxWf/tDdAVdFH56tYITXfTp02v1KTrSRcGzz65V3+GeLgo/++paDT+i3nsYffXllfpq+CG63tZ3v79W3/Vff34l3Yk60J2qnu5kW09ey9brefhatjzdK+XpXidP9zpbnu518nSvkqc7quTpXqefmi5vMiaEQjQ1jGlUM8YiNGfBqNA5Xc0yJgVGgkvGOII6AiElsR1XG9MVUEmLIGTKMlYUUImC+ZRTMvpV/TFdAu5Zq5B27lEENdkMhbaEKnb0u8VjD41zMMNI9g7Ost5BahA+uxHRyJZzsK6Dee9gHA8OCgIdo+Wo0vV0lV6KVFdxXrDMLNW2NjREeBWOCp3T5TLRPBPkNm51fVssKE3hzW2xfoyu2bRatSXdqZbaiuTG/Sy6rmmW3twvNqar9FqUsorbmFmax2tpaIBwQlpcLEY+jj3kOpEcBk0brbVcx7k2qfuFa1RuR8XGdFOx1mTLNYtzutmTdeocFBmqazva/5MiQwtjYJtrxDK6VF3t9hNOxg08iAxhAoXyNQlvdd3iZQ+Kdzh/jC5SFYzFvMVAd1OpNqVqoFs+Qhdcg1JtbhDbAN1cu/2Il7Nbrse/23vuYRKi2TrnKNfa0aXEOY2bs3sujW3FLfRivZ4XzkGSp+4GWKrFefxD6LpfFm8xYruNQdubjb6CbgR0ka5QdHuzUSjZbNIr6BL36+dwiKo822CVb9w9eF5N95a4wyJENxUYWWe9e8uZbqrxHXzOPAwSCAEGDLY3G4LXm407tjOxPfux37Et5e7tcqNRAQ4WZF1D19Csky3KXp+u+/11sp2hyt3K6NYoApFh8XhkQNEC/lGGsPth/XBBlOrpPhoZEHF3+wFHVQfukVulrhq7LXE1wT3HZ5kq4iIDjtftuNiZhzN3W4pyDzUK98v/XLl9wR/8TvUZ3dw5SGEMOwfb3kEkF/qH0K3c3ZxYiKxzn7VtWyC8fdXYdfGrFChqoBPBtm2h+4Th3eORIYPNNQVjc3gBlaCvRqcQIEe2zug2buc799yNEKq2zTGKughlclzs3MNtBDQ3CHVAFzsH4T2IJ2elziKDu4NDnaKimbmB3LbuJ9njbYykGVXyM7Lr9FPMyIJpOv6W3tRaPd3ptp5MrhQMdF+j1nRbV9ANp+hEd2qtge6kWuGR7mRbv55a60h3kqW+lo8MV8qvhK/TG0xXFahwS0SYNVy8Lc45XaxigjlBUXyYPxaQjOcPbrX1gC42qOxrqJffZeIy3VgTTB67l9dDukGpX3lTy6OtUnM8FC4eGon7t+ITmal0dYpKLphpG51f8uicrmpkI2XbEAuLWjc16uANIiV7dEYGM6tvybqsJWatpFJp25zXQC+hW+zSnbFaYMmry4wf0g1v08rsSFNroo1oxANL6I7uLd2XtW5iyaiFaVhoY60z0jSxiELoY53xpqqPc8DJdEtEbWbqLrXsUtVzuuG+ER2ptLBZ2t7CThVl2mlWnQ3Ih3TbqpL5NtO1FTckq+iGPbj72UW6hCFt7cY0gm03F/v1kO5sWzOpJXSp2jJrtpfus3a01W2ALoedrXTi5rZZpm+3TICLiGRapzsr9YvjqZzJdCspdMXqLbF7emHwPoi7mSi7mBlrM3lrIUQI0241a85tPaC7ya2+bUzVWcn2m4brLD03d5Eu3m+2nGXzlaq3aXqpd5fGrq5syfeVSupM8q680LHT2K0rmm07WmUCvIoRz+Ou0RJtYeHWVXbbWaM3x+5NpYs5j4v11sQRLsz5egZdoIvxPA5iXIAgBJeoiFRcFOcx+wHdqIihokKKFBgTeIELfm7uctwNOQ4h8ik041heOsYvZDXFwQAiBVJgJ4rLCx17ciqqAhxDOQUE3NmlGGESYdxBlyDFKAUtRceQ9FpzBnXB+kE/1znDhRSHXoPuqZUihHH5MBb+OHTdmAj780OnG9DFD4w9pHsqEs1Gvo50fo6sP47CePh7qU628PkcBh89VsHx2anS1XQDKhQRqlF1gVJlCGMpkVslxl344XSLslS6q7GEVKGDsEvTOkJgJjO6jLm5d9r1RJfWqZxrjfQu1VwJLjjTKQ3QWsRUcxFDi0aLI7uxhyXbpHVRW2tm8baOZVoKQlJFdf2SzyYgKRc115QrCqVkEN8SMB3dipgRwWMRd+aE5Hq6Ycf3pNlk1W2DdHPbCNlpINB2o1OQP5wubraQ72vZWN22KdobRmvUmUpoway8vTcPPNHd1ZBna8EywdpWbJStMpqvOcyemh2vTNN0jb2VxzsLjjwsOrMpO9gtS4nivWl2ZWWqBmYOLBud7bqjW4qNZVpubJMzke0JhhnnhodduWdK7KqU33YnphPo7mTTVVnDOorUmm1qXkm9F9tx5vgRIgNjibop60aKbaMQ0/uNRk3dbKSkbdyyuwPzRLfiotaMyf3etrbmwFrAFDtGyw2rUFUL2bT8lhzP2I48xF3dbTu5UV2F4i3sINwJutusyIaOP5y4G7u7vZCc7Ulr81JveLCT2V6FbZ1lTbVrarltTmnperrzzmBImASnGIWQxRUmccGLdBysfgS60GoIyReWeHEawPJHuQ+YUlj0xZCLyb2EeqLrUnUIsz1ewrIwLnBJYqLKAJUpLKugkSImMJM4Hq9jD1WqOFcKWsAhT+cE3oCZA4eZzbhjd3G3dE2BNVgSuskD4gW8CHgaqaJ0dAh+jcgQlC8pN9LPdc7wkkqP0w2jO91/flmne6W8suRZreH63Um1jldHT6oVHq6OnljreAZykn+hPwN5vfwZyOv0RtKNKOYoCNwdqOEAI7E7wY8jFD56LQ7khjgKXFFu3AeQyj2dQ60zswe6MS3RHOFZEMwgq0XwGLrJOg5CWEOXUW90Fh0noge6hqYBRnAkpuAax67IwS8Cq4vItREEsKQuD8nmzkOX7EK3XgmCqP88Ye566JoJcBih0YR3uM6dojJw0cVt5D0CCFHuNtscTM0DAAONwUb3OIkuaVRTSkoFJVbC0oKmqRCC2vG08IwuJ0RaQ6iRlkmiUqvTNNNWi7NrMQ50qTZUaiulllYKK7WWWkRgT0qrOwwVubHSpiO6NrZGaKhjDY+1pKURFvyCQpa6dqR0nycz22TpGd25UEKaDKpRsGQNNEEMbrSMJXRNjy6Q6m3hqgTXpAIrdgYNE22dqdJ9+u78FjQwSkpj9XCG+Xq6tYB5Y0cp07a0mOKGassVuPQKulRaLg1jtmRhqhqtG8Jrc3bT8ANdwoVVFUkt9DBtFGkaTS3MmKhsWGnAaJeCUSJHdIFsmTWwC6yxgcZNKmVKACzsLC47DiDmZVVZKpU9o4tSLaQtU4ZkQSuRSrebYG91MYwjIur7p1MGulIyWEkweCiRjDswamKw70yJCrppwxJWQZZziyfRhZmjJiZVNYy+VEYE9ptMVZxSd7nWS+nOpVaydGOQUlWjvhZVKqWURhfoKmm4LOEgNhTWmrFKDS0lTEV5CSPShlwSIKfUYTl8jAzIwMDFxqSlRn0RmO8aOArAHIyzkuqwoIZwGZ+PXehUrDnhGpUFjDgMe6VWyC2eNcQRKtN7eAe66YymGtNCpwTBDqh1yQs4MAy8kFCH0iCisYQmhwHwGlmNj6++GX8CdCGrHeGTURwbz9UnZrUhgj7Iany0x152TuaBh/zOsWB09u/+eaNHs9oDUwdPptENUU82gAcSuP8PP42553uM+3zSl8Gkj0RFGVPTn/aC9c292ke6YABq9B9cBcT1Gsd9CyGCdRoUDzEpTvV6uoMXLm1hl41czu3fdW1A0glcNVhQHdw4zHfvOqT6LQOE4K53QXT+0dyT06aQDKc6OA5728SRDGe9o4M3yiVyPpWui6ASjlI4ulHnIrsR5wu4+3QhIEBc0zIoTVlb1kDCbZioKg7rdGMrre5OyBzocsh3EEUZ46mBhGFjXgoqa2EEdqktcP8sduaPdKnkLq1oCJeQD5ARIYdkSAVnVqbWNaJlaCyFB12W1uXg+3QhD7hsaEnBS02pjekcWpQGrNpifEkY6o1JKoxslAmQrDS8TCHcawhd1hgpasiRsrSSuS3dVLqQcQSE9EY3GAGDZgjoL6VbclrRVIqCdJ0UBiJ9jSsKfpcFzCE0b+5CzIGuKBgvWTVrIJbZRpomUqWpwFVBsE0NpKVK0AoS+okuFIKmLBOhYUiEaVUYkjKp1rPKBV3ZUAbxFjeljZumsy4h3qeLNWQhN3FAVjDNCgtTBkldi4B8fKEz/FWS6gwmF26iBBmnA1dgdsBog6iynYLdS7bScW5oo+RUuiYuJU8VjBSMtKglTGTOZlYjui6plJDGcAS5zUhFAxi1ZQqJy2hpYGJ3z9Zh7DaCyDqF4eFkFEMFoIQZnVRzOBACVRuj6uJwKZyjC9mr1pDBKOKm5oHblYrDtI4ICukX0hOlekY0JSWgplylZ5EBBpyGbsBsGnKlKbLCtQi1tCbZ/JwubHLHI3gOcU3DHIPIFMYPFwgOHxgOBmZIOuXOPtdiKl10CHnB+OXL6I5L33s+/Of3TvIf5wwU32+VxOcWZ/fqH+NuMLJwfDq8e/gL7m8dZ7WRW/P0ri4eB70n95rFHBeHFwHpOwKRfWbIXVOzqauJ6+RXwqNKnu51+kmuMJ122d+//hrIabXurjCdXOvJ5G49fgbSbZl+yWrf3vRas9e19Vq1pld6vVovh+vl5eXl5eXl5eXl5eXl5eXl5eXl9ePq/wB9Yo6gQlsv2QAAAABJRU5ErkJggg=="/>
                 
                     <button class="btn btn-primary float-right" id="add-info-btn">Submit</button>
                 </form>
@@ -73,37 +75,20 @@
             </div>
             </div>
         </div>
-        <div class="row my-form">
-            <div class="col-md-12">
-            <!-- Add Employee  -->
-            <div class="card mb-4">
-                <div class="card-header">Enter your Information</div>
-                <div class="card-body">
-    
-                <!-- Entry Form -->
-                <form>
-                    <button class="btn btn-primary float-right" id="add-uv-btn">Submit</button>
-                </form>
-    
-                </div>
-            </div>
-            </div>
-        </div>
+        
         <div class="row">
             <div class="col-md-12">
             <!-- Add Employee  -->
-            <div class="card mb-4">
-                <div class="card-header">Current UV Index data at <span id="uv-time"></span></div>
-                <div class="card-body">
-                        <div class="col-md-12">
-                          
+           
+                    
+            <img id="skindex-image" src="http://www.shponline.co.uk/wp-content/uploads/2015/04/fitzpatrick-scale.jpg">
+
                               <div id="card-body">
                                
                                 <div class="col-md-12">
                                 <div class="card mb-4">
-                                <div class="card-header">Current Train Schedule</div>
+                                <div class="card-header">Current UV Index data at <span id="uv-time"></span></div>
                                 <div class="card-body">
-                                        <button class="btn btn-primary float-right" id="skin-info-btn">Submit</button>
                                   <table class="table table-sm table-hover" id='skin-table'>
                                     <thead>
                                       <tr>
@@ -127,7 +112,8 @@
                                         <div class="card mb-4" id="alert-uv-box">
                                             <div class="card-header">Alert Max UV Index at <span id="uv-max-time"></span></div>
                                               <div class="card-body">
-                                                <div id="uvmax-alert-display"></div>
+                                                <h2 id="uvmax-header">UV Index Max:</h2>
+                                                <div id="uvmax-alert-display">0.00</div>
                                               </div>    
                                     </div>
                                   </div>

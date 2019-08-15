@@ -1,5 +1,14 @@
+body {
+  background: url("http://res.freestockphotos.biz/pictures/8/8453-a-blue-sky-with-white-clouds-pv.jpg");
+  background-size: cover;
+}
+
 .my-form{ 
     margin-top: 10px
+}
+
+#skin-description-box {
+  width: 50%;
 }
 
 .skin-type-home{
@@ -9,7 +18,12 @@
 #skin-table th,
 td {
   display: inline-block;
-  width: 20%;
+  width: 25%;
+}
+
+#skindex-image {
+  width: 80%;
+  margin: 0 20px 20px 20px;
 }
 
 #alert-display-box {
