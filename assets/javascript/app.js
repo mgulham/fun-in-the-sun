@@ -70,8 +70,6 @@ $("#add-info-btn").on("click", function(event) {
   
 });
 
-
-
 function uvAjax() {
   
 let uvQueryUrl = `https://api.openuv.io/api/v1/uv?lat=${latCoord}&lng=${lonCoord}&dt=${currentTime}`
@@ -87,7 +85,7 @@ let uvQueryUrl = `https://api.openuv.io/api/v1/uv?lat=${latCoord}&lng=${lonCoord
         
         
         const data = response.result
-        console.log(data);
+        console.log(data);  
         console.log("Open UV Query Url: " + uvQueryUrl)
         
         st1 = data.safe_exposure_time.st1
@@ -97,40 +95,40 @@ let uvQueryUrl = `https://api.openuv.io/api/v1/uv?lat=${latCoord}&lng=${lonCoord
         st4 = data.safe_exposure_time.st4
         st6 = data.safe_exposure_time.st6
         
-        console.log(`Safe Exposure Time: 
-        Skin Type I: ${data.safe_exposure_time.st1} minutes
-        Skin Type II: ${data.safe_exposure_time.st2} minutes
-        Skin Type III: ${data.safe_exposure_time.st3} minutes
-        Skin Type IV: ${data.safe_exposure_time.st4} minutes
-        Skin Type V: ${data.safe_exposure_time.st5} minutes
-        Skin Type VI: ${data.safe_exposure_time.st6} minutes`)
+        // console.log(`Safe Exposure Time: 
+        // Skin Type I: ${data.safe_exposure_time.st1} minutes
+        // Skin Type II: ${data.safe_exposure_time.st2} minutes
+        // Skin Type III: ${data.safe_exposure_time.st3} minutes
+        // Skin Type IV: ${data.safe_exposure_time.st4} minutes
+        // Skin Type V: ${data.safe_exposure_time.st5} minutes
+        // Skin Type VI: ${data.safe_exposure_time.st6} minutes`)
         console.log(`Current UV Index: ${data.uv}`)
         console.log(`Current UV Time: ${data.uv_time}`)
         console.log(`Max UV: ${data.uv_max}`)
         console.log(`UV Max Time: ${data.uv_max_time}`)
         
-        
-        if (skinType == "I") {
-          console.log(`You Safe Exposure Time is ${st1} minutes.`)
+        if (data.uv == 0){
+        console.log("The UV Index is 0. It is Safe to go outside")
+        return
+        }        
+        else if (data.uv > 0 && skinType == "I") {
+          console.log(`Your Safe Exposure Time is ${st1} minutes.`) 
         }
-        else if (skinType == "II") {
-          console.log(`You Safe Exposure Time is ${st2} minutes.`)
+        else if (data.uv > 0 && skinType == "II") {
+          console.log(`Your Safe Exposure Time is ${st2} minutes.`)
         }
-        else if (skinType == "III") {
-          console.log(`You Safe Exposure Time is ${st3} minutes.`)
+        else if (data.uv > 0 && skinType == "III") {
+          console.log(`Your Safe Exposure Time is ${st3} minutes.`)
         }
-        else if (skinType == "IV") {
-          console.log(`You Safe Exposure Time is ${st4} minutes.`)
+        else if (data.uv > 0 && skinType == "IV") {
+          console.log(`Your Safe Exposure Time is ${st4} minutes.`)
         }
-        else if (skinType == "V") {
-          console.log(`You Safe Exposure Time is ${st5} minutes.`)
+        else if (data.uv > 0 && skinType == "V") {
+          console.log(`Your Safe Exposure Time is ${st5} minutes.`)
         }
-        else if (skinType == "VI") {
-          console.log(`You Safe Exposure Time is ${st6} minutes.`)
+        else if (data.uv > 0 && skinType == "VI") {
+          console.log(`Your Safe Exposure Time is ${st6} minutes.`)
         }
-    
-      
-    }
-}); 
-
+      }
+  }); 
 }
