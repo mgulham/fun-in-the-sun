@@ -5,3 +5,26 @@
 .skin-type-home{
     margin-top: 10px;
 }
+
+/*UV Data*/
+ body {
+    background-color: yellow
+  }
+.box-multi{
+    border: 10px red;
+    padding-left: 25px
+    
+}
+.h3-class{
+font-size: 100px
+
+}
+.container{
+    background-size: cover;
+
+}
+
+.pane-title{
+    border-block-color: red;
+    border-block: thin;
+}

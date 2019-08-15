@@ -7,9 +7,11 @@
         <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+                  
         <title>Fun in the Sun</title>
     </head> 
     <body>
+            
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <a class="navbar-brand" href="index.html">Fun in the Sun</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,11 +36,10 @@
         <div class="container">   
             <div class="row skin-type-home">
                 <div class="col-md-12">
-                    <h2>UV Index Search in Your City</h2>
-                    <p>The Ultraviolet (UV) Index predicts the ultraviolet radiation levels on a 1-11+ scale. The UV Index provides a daily forecast of the expected intensity of UV radiation from the sun.</p>
-
-                    <p>Please enter a City, to calculate the UV Index for that location.</p>
-
+                    <h2>UV Index</h2>
+                    <p>The Ultraviolet (UV) Index predicts the ultraviolet radiation levels on a 1-11+ scale. 
+                        The UV Index provides a daily forecast of the expected intensity of UV radiation from the sun.</p>
+                    <p>Please enter a Zip Code or location, to calculate the UV Index.</p>
                 </div>
 
             </div>         
@@ -52,8 +53,8 @@
                 <!-- Entry Form -->
                 <form>
                     <div class="form-group">
-                    <label for="city-name-input">City</label>
-                    <input class="form-control" id="city-name-input" placeholder="Enter Your City" type="text">
+                    <label for="zip-name-input">Zipcode</label>
+                    <input class="form-control" id="zip-name-input" placeholder="Enter Your Zipcode" type="text">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Select Skin Type</label>
@@ -63,8 +64,12 @@
                         <option>III</option>
                         <option>IV</option>
                         <option>V</option>
+                        <option>VI</option>
                         </select>
                     </div>
+
+                    <!-- Provide safe exposure time based on skin type
+                        Show info for other skin types if requested -->
                 
                     <button class="btn btn-primary float-right" id="add-info-btn">Submit</button>
                 </form>
@@ -73,10 +78,11 @@
             </div>
             </div>
         </div>
+        </div>
     
                 
                 </div>
-
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="assets/javascript/app.js"></script>
     </body>
