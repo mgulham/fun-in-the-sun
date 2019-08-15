@@ -5,3 +5,33 @@
 .skin-type-home{
     margin-top: 10px;
 }
+
+#skin-table th,
+td {
+  display: inline-block;
+  width: 20%;
+}
+
+#alert-display-box {
+  display: flex;
+  justify-content: center;
+}
+
+#vitamin-importance {
+  float: left;
+}
+
+#vitamin-d-image {
+  float: right;
+  
+}
+
+#alert-uv-box {
+  margin: 0 0 0 20px;
+  width: 75%;
+}
+
+#vitamin-box {
+  margin: 0 20px 0 0;
+  /* width: 75%; */
+}

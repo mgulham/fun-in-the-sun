@@ -7,6 +7,8 @@
         <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
         <title>Fun in the Sun</title>
     </head> 
     <body>
@@ -50,12 +52,12 @@
                 <!-- Entry Form -->
                 <form>
                     <div class="form-group">
-                    <label for="city-name-input">City</label>
-                    <input class="form-control" id="city-name-input" placeholder="Enter Your City" type="text">
-                    </div>
+                        <label for="zipCode-input">Zipcode</label>
+                        <input class="form-control" id="zipCode-input" placeholder="Enter Your Zip Code" type="text">
+                        </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Select Skin Type</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <select class="form-control" id="skin-type-input">
                         <option>I</option>
                         <option>II</option>
                         <option>III</option>
@@ -71,7 +73,89 @@
             </div>
             </div>
         </div>
+        <div class="row my-form">
+            <div class="col-md-12">
+            <!-- Add Employee  -->
+            <div class="card mb-4">
+                <div class="card-header">Enter your Information</div>
+                <div class="card-body">
     
+                <!-- Entry Form -->
+                <form>
+                    <button class="btn btn-primary float-right" id="add-uv-btn">Submit</button>
+                </form>
+    
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+            <!-- Add Employee  -->
+            <div class="card mb-4">
+                <div class="card-header">Current UV Index data at <span id="uv-time"></span></div>
+                <div class="card-body">
+                        <div class="col-md-12">
+                          
+                              <div id="card-body">
+                               
+                                <div class="col-md-12">
+                                <div class="card mb-4">
+                                <div class="card-header">Current Train Schedule</div>
+                                <div class="card-body">
+                                        <button class="btn btn-primary float-right" id="skin-info-btn">Submit</button>
+                                  <table class="table table-sm table-hover" id='skin-table'>
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Skin Type</th>
+                                        <th scope="col">UV Index</th>
+                                        <th scope="col">Burn Time</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                </div>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-6">
+                                        <div class="card mb-4" id="alert-uv-box">
+                                            <div class="card-header">Alert Max UV Index at <span id="uv-max-time"></span></div>
+                                              <div class="card-body">
+                                                <div id="uvmax-alert-display"></div>
+                                              </div>    
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                        <div class="card mb-4" id="vitamin-box">
+                                                <div class="card-header">Vitamin D efficiency</div>
+                                                <div class="card-body">
+                                                    <div class="row my-form">
+                                                      <div class="col-md-12">
+                                                        <!-- <div id="alert-display-box"> -->
+                                                          <p id="vitamin-importance">Vitamin D is essential for maintaining our general health. It can be obtained through our diet or through exposure through the sun. Based on one's skin type, we can determine how long an individual needs to stay exposed to the sun in order for the body to generate the vitamin D it needs for the day to function properly.</p>
+                                                          <div id="alert-display"><img id="vitamin-d-image" src="data:image/png;base64,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"/></div>
+                                                        <!-- </div> -->
+                                                          <h3 id="vitamin-text">You need to spend...</h3>
+                                                        <p id="vitamin-time"></p>
+                                                        <h3 id="vitamin-text">in the sun!!!</h3>
+                                                      </div>
+                                    
+                                                </div>
+                                            </div>
+                                            </div>
+                                  </div>
+                        </div>
+                    
+            </div>
+            </div>
+        </div>
+        
                 
                 </div>
 
