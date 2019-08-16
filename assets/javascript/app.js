@@ -19,6 +19,7 @@ var skinType4 = 0;
 var skinType5 = 0;
 var skinType6 = 0;
 
+
 console.log("CURRENT TIME: " + currentTime);
 console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
@@ -81,37 +82,46 @@ function uvAjax() {
   }
 
 function updateUVData () {
-  d3.select("#vitamin-importance").transition().style("color", "red");
+  // d3.select("#vitamin-importance").transition().style("color", "red");
   var uvMaxTimeNormal = moment(uvMaxTime);
-  var dateComponent = uvMaxTimeNormal.utc().format('YYYY-MM-DD');
+  console.log(uvMaxTimeNormal);
+  var local = moment.utc(uvMaxTime).local();
+  console.log(local);
+  var dateComponent = uvMaxTimeNormal.utc().format('hh:mm:ss');
   var timeComponent = uvMaxTimeNormal.utc().format('HH:mm:ss');
+  var stillUtc = moment.utc(dateComponent).toDate();
+  var localUVMaxTime = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss');
   $("#uv-time").html("<p>" + currentTimeStd +  " AM on " + dateComponent + " at " + zipCode + "<p>");
-  $("#uv-max-time").html("<p>" + timeComponent + " AM on " + dateComponent + " at " + zipCode + "<p>");
+  $("#uv-max-time").html("<p>" + localUVMaxTime + " at " + zipCode + "<p>");
   $("#uvmax-alert-display").html("<h1>" + uvMax + "<h1>");
   // vitamin D logic for skin I
   if (0 <= uvIndex && uvIndex < 3 && skinType === "I" ) {
     $("#alert-display").empty();
-    $("#alert-display").html("<img id='image' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzN_EE2ZXxTkUJpgwx7_Y1TxdGXezB61y9GcRFoT13LFiL7imMQw' width='200px'/>");
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
     $("#vitamin-time").html("<h1>" + 15 + "-" + 20 + " mins <h1>");
   };
   if (3 <= uvIndex && uvIndex < 6 && skinType === "I" ) {
     $("#alert-display").empty();
-    $("#alert-display").html("<img id='image' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzN_EE2ZXxTkUJpgwx7_Y1TxdGXezB61y9GcRFoT13LFiL7imMQw' width='200px'/>");
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
     $("#vitamin-time").html("<h1>" + 10 + "-" + 15 + " mins <h1>");
   };
   if (6 <= uvIndex && uvIndex < 8 && skinType === "I" ) {
     $("#alert-display").empty();
-    $("#alert-display").html("<img id='image' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzN_EE2ZXxTkUJpgwx7_Y1TxdGXezB61y9GcRFoT13LFiL7imMQw' width='200px'/>");
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
     $("#vitamin-time").html("<h1>" + 5 + "-" + 10 + " mins <h1>");
   };
   if (8 <= uvIndex && uvIndex < 11 && skinType === "I" ) {
     $("#alert-display").empty();
-    $("#alert-display").html("<img id='image' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzN_EE2ZXxTkUJpgwx7_Y1TxdGXezB61y9GcRFoT13LFiL7imMQw' width='200px'/>");
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
     $("#vitamin-time").html("<h1>" + 2 + "-" + 8 + " mins <h1>");
   };
   if (11 <= uvIndex && uvIndex < 15 && skinType === "I" ) {
     $("#alert-display").empty();
-    $("#alert-display").html("<img id='image' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzN_EE2ZXxTkUJpgwx7_Y1TxdGXezB61y9GcRFoT13LFiL7imMQw' width='200px'/>");
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
     $("#vitamin-time").html("<h1>" + 1 + "-" + 5 + " mins <h1>");
   };
   // skin type I table logic
@@ -161,7 +171,7 @@ function updateUVData () {
     );
   $("#skin-table > tbody").append(newRow5);
   }
-  // skin type I table logic
+  // skin type 2 table logic
 
   if (0 <= uvIndex && uvIndex <3 && skinType === "II" ) {
     var newRow1 = $("<tr>").append(
@@ -208,4 +218,193 @@ function updateUVData () {
     );
   $("#skin-table > tbody").append(newRow5);
   }
+
+    // skin type 3 table logic
+
+    if (0 <= uvIndex && uvIndex <3 && skinType === "III" ) {
+      var newRow1 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType3} mins`),
+      );
+    $("#skin-table > tbody").append(newRow1);
+    }
+    if (3 <= uvIndex && uvIndex <6 && skinType === "III" ) {
+      var newRow2 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType3} mins`),
+      );
+    $("#skin-table > tbody").append(newRow2);
+    }
+    if (6 <= uvIndex && uvIndex <8 && skinType === "III" ) {
+      var newRow3 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType3} mins`),
+      );
+    $("#skin-table > tbody").append(newRow3);
+    }
+    if (8 <= uvIndex && uvIndex <11 && skinType === "III" ) {
+      var newRow4 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType3} mins`),
+      );
+    $("#skin-table > tbody").append(newRow4);
+    }
+    if (11 <= uvIndex && uvIndex <15 && skinType === "III" ) {
+      var newRow5 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType3} mins`),
+      );
+    $("#skin-table > tbody").append(newRow5);
+    }
+      // skin type 4 table logic
+
+  if (0 <= uvIndex && uvIndex <3 && skinType === "IV" ) {
+    var newRow1 = $("<tr>").append(
+      $("<td>").text(`${currentTimeStd} AM`),
+      $("<td>").text(skinType),
+      $("<td>").text(uvIndex),
+      $("<td>").text(`${skinType4} mins`),
+    );
+  $("#skin-table > tbody").append(newRow1);
+  }
+  if (3 <= uvIndex && uvIndex <6 && skinType === "IV" ) {
+    var newRow2 = $("<tr>").append(
+      $("<td>").text(`${currentTimeStd} AM`),
+      $("<td>").text(skinType),
+      $("<td>").text(uvIndex),
+      $("<td>").text(`${skinType4} mins`),
+    );
+  $("#skin-table > tbody").append(newRow2);
+  }
+  if (6 <= uvIndex && uvIndex <8 && skinType === "IV" ) {
+    var newRow3 = $("<tr>").append(
+      $("<td>").text(`${currentTimeStd} AM`),
+      $("<td>").text(skinType),
+      $("<td>").text(uvIndex),
+      $("<td>").text(`${skinType4} mins`),
+    );
+  $("#skin-table > tbody").append(newRow3);
+  }
+  if (8 <= uvIndex && uvIndex <11 && skinType === "IV" ) {
+    var newRow4 = $("<tr>").append(
+      $("<td>").text(`${currentTimeStd} AM`),
+      $("<td>").text(skinType),
+      $("<td>").text(uvIndex),
+      $("<td>").text(`${skinType4} mins`),
+    );
+  $("#skin-table > tbody").append(newRow4);
+  }
+  if (11 <= uvIndex && uvIndex <15 && skinType === "IV" ) {
+    var newRow5 = $("<tr>").append(
+      $("<td>").text(`${currentTimeStd} AM`),
+      $("<td>").text(skinType),
+      $("<td>").text(uvIndex),
+      $("<td>").text(`${skinType4} mins`),
+    );
+  $("#skin-table > tbody").append(newRow5);
+  }
+    // skin type 5 table logic
+
+    if (0 <= uvIndex && uvIndex <3 && skinType === "V" ) {
+      var newRow1 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType5} mins`),
+      );
+    $("#skin-table > tbody").append(newRow1);
+    }
+    if (3 <= uvIndex && uvIndex <6 && skinType === "V" ) {
+      var newRow2 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType5} mins`),
+      );
+    $("#skin-table > tbody").append(newRow2);
+    }
+    if (6 <= uvIndex && uvIndex <8 && skinType === "V" ) {
+      var newRow3 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType5} mins`),
+      );
+    $("#skin-table > tbody").append(newRow3);
+    }
+    if (8 <= uvIndex && uvIndex <11 && skinType === "V" ) {
+      var newRow4 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType5} mins`),
+      );
+    $("#skin-table > tbody").append(newRow4);
+    }
+    if (11 <= uvIndex && uvIndex <15 && skinType === "V" ) {
+      var newRow5 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType5} mins`),
+      );
+    $("#skin-table > tbody").append(newRow5);
+    }
+    // skin type 6 table logic
+
+    if (0 <= uvIndex && uvIndex <3 && skinType === "VI" ) {
+      var newRow1 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType6} mins`),
+      );
+    $("#skin-table > tbody").append(newRow1);
+    }
+    if (3 <= uvIndex && uvIndex <6 && skinType === "VI" ) {
+      var newRow2 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType6} mins`),
+      );
+    $("#skin-table > tbody").append(newRow2);
+    }
+    if (6 <= uvIndex && uvIndex <8 && skinType === "VI" ) {
+      var newRow3 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType6} mins`),
+      );
+    $("#skin-table > tbody").append(newRow3);
+    }
+    if (8 <= uvIndex && uvIndex <11 && skinType === "VI" ) {
+      var newRow4 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType6} mins`),
+      );
+    $("#skin-table > tbody").append(newRow4);
+    }
+    if (11 <= uvIndex && uvIndex <15 && skinType === "VI" ) {
+      var newRow5 = $("<tr>").append(
+        $("<td>").text(`${currentTimeStd} AM`),
+        $("<td>").text(skinType),
+        $("<td>").text(uvIndex),
+        $("<td>").text(`${skinType6} mins`),
+      );
+    $("#skin-table > tbody").append(newRow5);
+    } 
 }

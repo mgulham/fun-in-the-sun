@@ -3,6 +3,14 @@ body {
   background-size: cover;
 }
 
+#card-color {
+  background-color: yellow;
+}
+
+#card-info {
+  background-color: lightgray;
+}
+
 .my-form{ 
     margin-top: 10px
 }
@@ -26,9 +34,21 @@ td {
   margin: 0 20px 20px 20px;
 }
 
+/* #vitamin-d-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+} */
+
 #alert-display-box {
   display: flex;
   justify-content: center;
+}
+
+#vitamin-d-source {
+  clear: right;
+  float: right;
+  font-size: 10px;
 }
 
 #vitamin-importance {
@@ -36,11 +56,13 @@ td {
 }
 
 #vitamin-d-image {
+  position: relative;
   float: right;
-  
 }
 
+
 #alert-uv-box {
+  opacity: 0.75;
   margin: 0 0 0 20px;
   width: 75%;
 }
@@ -49,3 +71,4 @@ td {
   margin: 0 20px 0 0;
   /* width: 75%; */
 }
+
