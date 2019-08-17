@@ -30,12 +30,11 @@ let humidity = document.getElementById("humidity-div");
 searchButton.addEventListener("click", findWeatherDetails);
 searchInput.addEventListener("keyup", enterPressed);
 
-console.log("CURRENT TIME: " + currentTime);
-console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
-$(document).ready(function() {
-  $("#clothing-box").hide();
-})
+
+// $(document).ready(function() {
+//   $("#clothing-box").hide();
+// })
 
 function enterPressed(event) {
   if (event.key === "Enter") {
@@ -62,7 +61,7 @@ function theResponse(response) {
 
 function httpRequestAsync(url, callback)
 {
-  console.log("hello");
+ 
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = () => { 
         if (httpRequest.readyState == 4 && httpRequest.status == 200)
@@ -80,7 +79,6 @@ $("#add-info-btn").on("click", function(event) {
     skinType = $("#skin-type-input").val();
     zipCode = $("#zipCode-input").val();
 
-  console.log(skinType);
 
   let owQueryURL = `http://api.openweathermap.org/data/2.5/weather?q=${zipCode},US&APPID=${owApiKey}` 
   // let owQueryURL2 = `https://tile.openweathermap.org/map/{temp_new}/{z}/{x}/{y}.png?appid=${owApiKey}`
@@ -90,11 +88,10 @@ $("#add-info-btn").on("click", function(event) {
           url: owQueryURL,
           method: "GET"
         }).then(function(response) {
-            console.log(response);
+            
             latCoord = response.coord.lat;
             lonCoord = response.coord.lon;
-            console.log(latCoord);
-            console.log(lonCoord);  
+           
             });
             setTimeout(uvAjax, 1000);
 });
@@ -120,10 +117,7 @@ function uvAjax() {
       skinType4 = response.result.safe_exposure_time.st4;
       skinType5 = response.result.safe_exposure_time.st5;
       skinType6 = response.result.safe_exposure_time.st6;
-      console.log(response);
-      console.log(response.result.uv);
-      console.log(response.result.uv_max);
-      console.log(response.result.safe_exposure_time.st1); 
+  
    }
   });
   setTimeout(updateUVData, 2000);
