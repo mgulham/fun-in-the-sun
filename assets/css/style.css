@@ -180,4 +180,15 @@ body {
   #alert-display-health{
     float: left;
   }
-  
+  #header-info{
+    font-size:18px;
+    font-weight: bold;
+  }
+  #zipCode-input{
+    margin: 5px;
+  }
+  #add-info-button,
+  #skin-type-info
+  #zipCode-input{
+    margin: 5px;
+  }
