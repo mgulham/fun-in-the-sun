@@ -46,7 +46,7 @@ function findWeatherDetails() {
   if (searchInput.value === "") {
   
   }else {
-    let searchLink = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput.value + "&appid="+appKey;
+    let searchLink = "http://api.openweathermap.org/data/2.5/weather?q=" + searchInput.value + "&appid="+appKey;
    httpRequestAsync(searchLink, theResponse);
   }
  }
@@ -104,7 +104,7 @@ function uvAjax() {
     beforeSend: function(request) {
       request.setRequestHeader('x-access-token', '8e63655660822c137657b44e1d349605');
     },
-    url: `https://api.openuv.io/api/v1/uv?lat=${latCoord}&lng=${lonCoord}&dt=${currentTime}`,
+    url: `http://api.openuv.io/api/v1/uv?lat=${latCoord}&lng=${lonCoord}&dt=${currentTime}`,
     success: function(response) {
       //handle successful response
       uvIndex = response.result.uv;
