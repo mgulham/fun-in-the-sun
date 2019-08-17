@@ -1,4 +1,4 @@
-     <!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -7,39 +7,25 @@
         <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+                  
         <title>Fun in the Sun</title>
     </head> 
     <body>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="index.html">Fun in the Sun</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="uv-data.html">UV Data</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="skin-types.html">Skin Types</a>
-                        </li>
-                    </ul>
-                    </div>
-                </nav>
+            
+        <nav class="navbar navbar-light bg-light">
+            <span id="header" class="navbar-brand mb-0 h1">Fun in the Sun</span>
+          </nav>
 
-               
         <div class="container">   
             <div class="row skin-type-home">
                 <div class="col-md-12">
-                    <h2>Learn about your Skin Type</h2>
-                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-
+                    <h2>UV Index</h2>
+                    <p>The Ultraviolet (UV) Index predicts the ultraviolet radiation levels on a 1-11+ scale. 
+                        The UV Index provides a daily forecast of the expected intensity of UV radiation from the sun.</p>
+                    
                 </div>
-
             </div>         
+        
         <div class="row my-form">
             <div class="col-md-12">
             <!-- Add Employee  -->
@@ -50,8 +36,8 @@
                 <!-- Entry Form -->
                 <form>
                     <div class="form-group">
-                    <label for="city-name-input">City</label>
-                    <input class="form-control" id="city-name-input" placeholder="Enter Your City" type="text">
+                    <label for="zip-name-input">Zipcode</label>
+                    <input class="form-control" id="zip-name-input" placeholder="Enter Your Zipcode" type="text">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Select Skin Type</label>
@@ -61,8 +47,12 @@
                         <option>III</option>
                         <option>IV</option>
                         <option>V</option>
+                        <option>VI</option>
                         </select>
                     </div>
+
+                    <!-- Provide safe exposure time based on skin type
+                        Show info for other skin types if requested -->
                 
                     <button class="btn btn-primary float-right" id="add-info-btn">Submit</button>
                 </form>
@@ -71,10 +61,64 @@
             </div>
             </div>
         </div>
-    
-                
+        </div>
+               
+                <div id="steven-weather">
+                    <!-- Weather info provided by steven -->
                 </div>
 
+                <div id="jeremey-uv-vitamin-D">
+                        <!--UV and Vitamin info info provided by JEREmey-->
+                    </div>
+
+                <div id="kelly-skintype">
+                    <!--Skin type info provided by kelly-->
+                </div>
+
+                <div class="container" id="maiwand">
+                        <div class="row">
+                                <div class="col-md-6">
+                                        <div class="card mb-4" id="alert-clothing-box">
+                                            <div class="card-header">Clothing Recommendations</div>
+                                              <div class="card-body">
+                                                <div id="clothing-alert-display"><p id="clothing-alert">Hot climates and a high UV index can cause skin conditions as well as many other health concerns. This is why it is important to keep up to date with what outfits are appropriate for the current weather.</p>
+                                                    <p id="clothing-alert">Tightly woven clothing that cover the skin will offer the best protection.</p>
+                                                    <p id="clothing-alert">UV rays can damage your eyesight and cause vision issues like cataracts. It is also imperative to wear large sunglasses that block 100% of UV rays.</p>
+                                                    <p id="clothing-alert">Another great measure is to wear a hat. Your face has very sensitive skin that can be vulnerable to burning. A hat can also help protect your eyes when you don't have glasses.</p>
+                                                </div>
+                                              </div>    
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                        <div class="card mb-4" id="health-box">
+                                                <div class="card-header">Health Recommendations</div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                      <div class="col-md-12">
+                                                        <!-- <div id="alert-display-box"> -->
+                                                        <div id="alert-display-health"><img id="health-image" src="https://media.defense.gov/2015/Jul/24/2001285283/780/780/0/150721-F-LB106-001.JPG/" height= "200px" width="200px"></div>
+                                                        <div id="health-importance"><p>There are 2 types of ultraviolet radiation, UVA and UVB. Both UV radiations damage the skin, age it prematurely, and increase your risk of skin cancer. One of the most important measures in protecting yourself from UV radiation is wearing the proper sunscreen. A sunscreen with at least SPF 15 is great, but SPF 30 is recommended.</p></div>
+                                                          
+                                                        <!-- </div> -->
+                                                          
+                                                        
+                                                
+                                                      </div>
+                                    
+                                                </div>
+                                            </div>
+                                            </div>
+                                  </div>
+                        </div>
+                    </div>
+                
+
+
+
+
+                
+                </div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="assets/javascript/app.js"></script>
     </body>
