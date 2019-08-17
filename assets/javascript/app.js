@@ -18,11 +18,54 @@ var skinType3 = 0;
 var skinType4 = 0;
 var skinType5 = 0;
 var skinType6 = 0;
+const appKey = "5962343185c76a06e93a44c01391ca1a";
 
+let searchButton = document.getElementById("search-btn");
+let searchInput = document.getElementById("search-txt");
+let cityName = document.getElementById("city-name");
+let icon = document.getElementById("icon");
+let temperature = document.getElementById("temp");
+let humidity = document.getElementById("humidity-div");
+
+searchButton.addEventListener("click", findWeatherDetails);
+searchInput.addEventListener("keyup", enterPressed);
 
 console.log("CURRENT TIME: " + currentTime);
 console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+function enterPressed(event) {
+  if (event.key === "Enter") {
+    findWeatherDetails();
+  }
+}
 
+function findWeatherDetails() {
+  if (searchInput.value === "") {
+  
+  }else {
+    let searchLink = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput.value + "&appid="+appKey;
+   httpRequestAsync(searchLink, theResponse);
+  }
+ }
+
+function theResponse(response) {
+  let jsonObject = JSON.parse(response);
+  cityName.innerHTML = jsonObject.name;
+  icon.src = "http://openweathermap.org/img/w/" + jsonObject.weather[0].icon + ".png";
+  temperature.innerHTML = parseInt(jsonObject.main.temp - 273) + "°";
+  humidity.innerHTML = jsonObject.main.humidity + "%";
+}
+
+function httpRequestAsync(url, callback)
+{
+  console.log("hello");
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = () => { 
+        if (httpRequest.readyState == 4 && httpRequest.status == 200)
+            callback(httpRequest.responseText);
+    }
+    httpRequest.open("GET", url, true);
+    httpRequest.send();
+}
 
 $("#add-info-btn").on("click", function(event) {
   event.preventDefault();
@@ -83,16 +126,7 @@ function uvAjax() {
 
 function updateUVData () {
   // d3.select("#vitamin-importance").transition().style("color", "red");
-  var uvMaxTimeNormal = moment(uvMaxTime);
-  console.log(uvMaxTimeNormal);
-  var local = moment.utc(uvMaxTime).local();
-  console.log(local);
-  var dateComponent = uvMaxTimeNormal.utc().format('hh:mm:ss');
-  var timeComponent = uvMaxTimeNormal.utc().format('HH:mm:ss');
-  var stillUtc = moment.utc(dateComponent).toDate();
-  var localUVMaxTime = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss');
-  $("#uv-time").html("<p>" + currentTimeStd +  " AM on " + dateComponent + " at " + zipCode + "<p>");
-  $("#uv-max-time").html("<p>" + localUVMaxTime + " at " + zipCode + "<p>");
+  $("#uv-time").html("<p>" + currentTimeStd +  " AM/PM at " + zipCode + "<p>");
   $("#uvmax-alert-display").html("<h1>" + uvMax + "<h1>");
   // vitamin D logic for skin I
   if (0 <= uvIndex && uvIndex < 3 && skinType === "I" ) {
@@ -106,23 +140,272 @@ function updateUVData () {
   };
   if (3 <= uvIndex && uvIndex < 6 && skinType === "I" ) {
     $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
     $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
     $("#vitamin-time").html("<h1>" + 10 + "-" + 15 + " mins <h1>");
   };
   if (6 <= uvIndex && uvIndex < 8 && skinType === "I" ) {
     $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
     $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
     $("#vitamin-time").html("<h1>" + 5 + "-" + 10 + " mins <h1>");
   };
   if (8 <= uvIndex && uvIndex < 11 && skinType === "I" ) {
     $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
     $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
     $("#vitamin-time").html("<h1>" + 2 + "-" + 8 + " mins <h1>");
   };
   if (11 <= uvIndex && uvIndex < 15 && skinType === "I" ) {
     $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
     $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
     $("#vitamin-time").html("<h1>" + 1 + "-" + 5 + " mins <h1>");
+  };
+
+   // vitamin D logic for skin II
+   if (0 <= uvIndex && uvIndex < 3 && skinType === "II" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 20 + "-" + 30 + " mins <h1>");
+  };
+  if (3 <= uvIndex && uvIndex < 6 && skinType === "II" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 15 + "-" + 20 + " mins <h1>");
+  };
+  if (6 <= uvIndex && uvIndex < 8 && skinType === "II" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 10 + "-" + 15 + " mins <h1>");
+  };
+  if (8 <= uvIndex && uvIndex < 11 && skinType === "II" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 5 + "-" + 10 + " mins <h1>");
+  };
+  if (11 <= uvIndex && uvIndex < 15 && skinType === "II" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 2 + "-" + 8 + " mins <h1>");
+  };
+   // vitamin D logic for skin III
+   if (0 <= uvIndex && uvIndex < 3 && skinType === "III" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 30 + "-" + 40 + " mins <h1>");
+  };
+  if (3 <= uvIndex && uvIndex < 6 && skinType === "III" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 20 + "-" + 30 + " mins <h1>");
+  };
+  if (6 <= uvIndex && uvIndex < 8 && skinType === "III" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 15 + "-" + 20 + " mins <h1>");
+  };
+  if (8 <= uvIndex && uvIndex < 11 && skinType === "III" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 10 + "-" + 15 + " mins <h1>");
+  };
+  if (11 <= uvIndex && uvIndex < 15 && skinType === "III" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 5 + "-" + 10 + " mins <h1>");
+  };
+   // vitamin D logic for skin IV
+   if (0 <= uvIndex && uvIndex < 3 && skinType === "IV" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 40 + "-" + 60 + " mins <h1>");
+  };
+  if (3 <= uvIndex && uvIndex < 6 && skinType === "IV" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 30 + "-" + 40 + " mins <h1>");
+  };
+  if (6 <= uvIndex && uvIndex < 8 && skinType === "IV" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 20 + "-" + 30 + " mins <h1>");
+  };
+  if (8 <= uvIndex && uvIndex < 11 && skinType === "IV" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 15 + "-" + 20 + " mins <h1>");
+  };
+  if (11 <= uvIndex && uvIndex < 15 && skinType === "IV" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 10+ "-" + 15 + " mins <h1>");
+  };
+
+   // vitamin D logic for skin V
+   if (0 <= uvIndex && uvIndex < 3 && skinType === "V" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 60 + "-" + 80 + " mins <h1>");
+  };
+  if (3 <= uvIndex && uvIndex < 6 && skinType === "V" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 40 + "-" + 60 + " mins <h1>");
+  };
+  if (6 <= uvIndex && uvIndex < 8 && skinType === "V" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 30 + "-" + 40 + " mins <h1>");
+  };
+  if (8 <= uvIndex && uvIndex < 11 && skinType === "V" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 20 + "-" + 30 + " mins <h1>");
+  };
+  if (11 <= uvIndex && uvIndex < 15 && skinType === "V" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 15 + "-" + 20 + " mins <h1>");
+  };
+
+   // vitamin D logic for skin VI
+   if (0 <= uvIndex && uvIndex < 3 && skinType === "VI" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + "-" + " mins <h1>");
+  };
+  if (3 <= uvIndex && uvIndex < 6 && skinType === "VI" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 60 + "-" + 80 + " mins <h1>");
+  };
+  if (6 <= uvIndex && uvIndex < 8 && skinType === "VI" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 40 + "-" + 60 + " mins <h1>");
+  };
+  if (8 <= uvIndex && uvIndex < 11 && skinType === "VI" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 30 + "-" + 40 + " mins <h1>");
+  };
+  if (11 <= uvIndex && uvIndex < 15 && skinType === "VI" ) {
+    $("#alert-display").empty();
+    $("#vitamin-d-source").empty();
+    $("#vitamin-importance").empty();
+    $("#vitamin-importance").html("<p id='vitamin-importance'> UV radiation plays a crucial role in initiaing the synthesis of vitamin D. Since darker skin blocks more sunlight, it takes longer for people with a higher numbered skin type to obtain the sufficient vitamin D soley from the sun. Source: (https://en.wikipedia.org/wiki/Vitamin_D#Biosynthesis)</p>")
+    $("#alert-display").html("<img id='vitamin-info-image' src='https://image.slidesharecdn.com/vitd-140522120336-phpapp02/95/vit-d-5-638.jpg?cb=1400760634' width='450px'/>");
+    $("#vitamin-d-source").html("<figcaption id='vitamin-d-source'> https://www.slideshare.net/nileshchandra2/vit-d-35009463 </figcaption>");
+    $("#vitamin-time").html("<h1>" + 20 + "-" + 30 + " mins <h1>");
   };
   // skin type I table logic
   
