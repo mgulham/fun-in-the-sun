@@ -34,7 +34,7 @@ console.log("CURRENT TIME: " + currentTime);
 console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
 $(document).ready(function() {
-  $("#maiwand").hide();
+  $("#clothing-box").hide();
 })
 
 function enterPressed(event) {
@@ -130,7 +130,7 @@ function uvAjax() {
   }
 
 function updateUVData () {
-  $("#maiwand").show();
+  $("#clothing-box").show();
   // d3.select("#vitamin-importance").transition().style("color", "red");
   $("#uv-time").html("<p>" + currentTimeStd +  " AM/PM at " + zipCode + "<p>");
   $("#uvmax-alert-display").html("<h1>" + uvMax + "<h1>");
