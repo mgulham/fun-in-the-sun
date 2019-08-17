@@ -169,3 +169,11 @@ td {
   -webkit-transform:translate(-50%,-50%);
           transform:translate(-50%,-50%);
 }
+
+#weather-container{
+  width: 500px;
+  height: 300px;
+  margin:20px 20px 20px 20px;
+  border-radius: 25px;
+  box-shadow: 0 20px 40px 0px rgba(0,0,0,0.3)
+}

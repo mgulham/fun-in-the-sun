@@ -121,7 +121,7 @@ function uvAjax() {
       console.log(response.result.safe_exposure_time.st1); 
    }
   });
-  setTimeout(updateUVData, 1000);
+  setTimeout(updateUVData, 2000);
   }
 
 function updateUVData () {
