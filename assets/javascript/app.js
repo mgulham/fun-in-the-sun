@@ -55,7 +55,7 @@ function theResponse(response) {
   let jsonObject = JSON.parse(response);
   cityName.innerHTML = jsonObject.name;
   icon.src = "http://openweathermap.org/img/w/" + jsonObject.weather[0].icon + ".png";
-  temperature.innerHTML = parseInt(jsonObject.main.temp - 273) + "°C";
+  temperature.innerHTML = parseInt((jsonObject.main.temp - 273) * 9/5 + 32) + "°F";
   humidity.innerHTML = jsonObject.main.humidity + "%";
 }
 
