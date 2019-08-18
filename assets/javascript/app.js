@@ -32,9 +32,7 @@ searchInput.addEventListener("keyup", enterPressed);
 
 
 
-$(document).ready(function() {
-  $("#clothing-box").hide();
-})
+
 
 function enterPressed(event) {
   if (event.key === "Enter") {
@@ -55,7 +53,7 @@ function theResponse(response) {
   let jsonObject = JSON.parse(response);
   cityName.innerHTML = jsonObject.name;
   icon.src = "http://openweathermap.org/img/w/" + jsonObject.weather[0].icon + ".png";
-  temperature.innerHTML = parseInt((jsonObject.main.temp - 273) * 9/5 + 32) + "°F";
+  temperature.innerHTML = parseInt((jsonObject.main.temp - 273) * 9/5 + 32) + "°F ";
   humidity.innerHTML = jsonObject.main.humidity + "%";
 }
 
@@ -120,11 +118,11 @@ function uvAjax() {
   
    }
   });
-  setTimeout(updateUVData, 2000);
+  setTimeout(updateUVData, 1500);
   }
 
 function updateUVData () {
-  $("#clothing-box").show();
+  
   // d3.select("#vitamin-importance").transition().style("color", "red");
   $("#uv-time").html("<p>" + currentTimeStd +  " AM/PM at " + zipCode + "<p>");
   $("#uvmax-alert-display").html("<h1>" + uvMax + "<h1>");
