@@ -31,9 +31,6 @@ searchButton.addEventListener("click", findWeatherDetails);
 searchInput.addEventListener("keyup", enterPressed);
 
 
-
-
-
 function enterPressed(event) {
   if (event.key === "Enter") {
     findWeatherDetails();
@@ -44,7 +41,7 @@ function findWeatherDetails() {
   if (searchInput.value === "") {
   
   }else {
-    let searchLink = "http://api.openweathermap.org/data/2.5/weather?q=" + searchInput.value + "&appid="+appKey;
+    let searchLink = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput.value + "&appid="+appKey;
    httpRequestAsync(searchLink, theResponse);
   }
  }
@@ -53,7 +50,7 @@ function theResponse(response) {
   let jsonObject = JSON.parse(response);
   cityName.innerHTML = jsonObject.name;
   icon.src = "http://openweathermap.org/img/w/" + jsonObject.weather[0].icon + ".png";
-  temperature.innerHTML = parseInt((jsonObject.main.temp - 273) * 9/5 + 32) + "°F ";
+  temperature.innerHTML = parseInt((jsonObject.main.temp - 273) * 9/5 + 32) + "°F";
   humidity.innerHTML = jsonObject.main.humidity + "%";
 }
 
@@ -78,6 +75,7 @@ $("#add-info-btn").on("click", function(event) {
     zipCode = $("#zipCode-input").val();
 
 
+
   let owQueryURL = `http://api.openweathermap.org/data/2.5/weather?q=${zipCode},US&APPID=${owApiKey}` 
   // let owQueryURL2 = `https://tile.openweathermap.org/map/{temp_new}/{z}/{x}/{y}.png?appid=${owApiKey}`
   // Creating an AJAX call for the specific villain button being clicked
@@ -89,7 +87,7 @@ $("#add-info-btn").on("click", function(event) {
             
             latCoord = response.coord.lat;
             lonCoord = response.coord.lon;
-           
+          
             });
             setTimeout(uvAjax, 1000);
 });
@@ -102,7 +100,7 @@ function uvAjax() {
     beforeSend: function(request) {
       request.setRequestHeader('x-access-token', '8e63655660822c137657b44e1d349605');
     },
-    url: `http://api.openuv.io/api/v1/uv?lat=${latCoord}&lng=${lonCoord}&dt=${currentTime}`,
+    url: `https://api.openuv.io/api/v1/uv?lat=${latCoord}&lng=${lonCoord}&dt=${currentTime}`,
     success: function(response) {
       //handle successful response
       uvIndex = response.result.uv;
@@ -115,7 +113,7 @@ function uvAjax() {
       skinType4 = response.result.safe_exposure_time.st4;
       skinType5 = response.result.safe_exposure_time.st5;
       skinType6 = response.result.safe_exposure_time.st6;
-  
+     
    }
   });
   setTimeout(updateUVData, 1500);
